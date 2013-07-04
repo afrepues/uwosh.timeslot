@@ -21,7 +21,7 @@
       <div style="font-size: 115%;" tal:condition="not:view/isCurrentUserLoggedIn">
 	<strong i18n:translate="">To signup for a spot you will need to
 	<a tal:attributes="href string:${context/absolute_url}/login_form?came_from=${context/absolute_url}/@@choose-timeslot-view"
-	   i18n:translate="timeslot_label_login">login</a> first.</strong>
+	   >login</a> first.</strong>
       </div>
 
       <ul>
