@@ -44,8 +44,8 @@
                 
 	<tal:block tal:condition="not:result/success">
 	  <h3>Failure</h3>
-	  <p>The system was unable to register you for:<br />
-	    <span tal:content="result/slotLabel" /></p>
+	  <p>The system was unable to register you for:</p>
+	  <p class="timeslot" tal:content="result/slotLabel">Time slot</p>
 	  <p tal:content="result/error" />
 	</tal:block>
      </div>
