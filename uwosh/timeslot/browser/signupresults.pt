@@ -72,9 +72,9 @@
                 
 	<tal:block tal:condition="python: result['status'] == 'error'">
 	  <h3 i18n:translate="">Failure</h3>
-	  <p><span i18n:translate="">The system was unable to register you for:</span><br />
-	    <span tal:content="result/slotLabel" /></p>
-	  <p tal:content="result/message" />
+	  <p i18n:translate="">The system was unable to register you for:</p>
+	  <p class="timeslot" tal:content="result/slotLabel">Time slot</p>
+	  <p tal:content="result/error" />
 	</tal:block>
      </div>
 
