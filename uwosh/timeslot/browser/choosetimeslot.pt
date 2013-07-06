@@ -4,19 +4,10 @@
       i18n:domain="uwosh.timeslot">
 
 <body>
-  <div metal:fill-slot="main">
-    <tal:main-macro metal:define-macro="main"
+  <metal:content-core metal:fill-slot="content-core">
+    <tal:main-macro metal:define-macro="content-core"
                     tal:define="allowSignupForMultipleSlots context/getAllowSignupForMultipleSlots;
                                 showSlotNames context/showSlotNames;">
-      
-      <h2 tal:content="context/Title" />
- 
-      <div tal:condition="context/description" id="description">
-	<tal:block tal:replace="context/description">[description]
-	</tal:block>
-	
-	<br />
-      </div>
 		
       <div style="font-size: 115%;" tal:condition="not:view/isCurrentUserLoggedIn">
 	<strong>To signup for a spot you will need to
@@ -140,6 +131,6 @@
       </form>
 
     </tal:main-macro>
-  </div>
+  </metal:content-core>
 </body>
 </html>
