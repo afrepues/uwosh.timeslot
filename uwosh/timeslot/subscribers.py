@@ -21,16 +21,24 @@ def sendSignupNotificationEmail(obj, event):
             fromEmail = "%s <%s>" % (obj.email_from_name, obj.email_from_address)
             subject = signupSheet.Title() + ' - Registration Confirmation'
 
-            message = 'Hi ' + person.Title() + ',\n\n'
-            message += 'This message is to confirm that you have been signed up for:\n'
-            message += timeSlot.getLabel() + '\n\n'
+            message = """Dear {fullname},
+
+Thank you for scheduling your McMaster Family Medicine CaRMS interview.
+
+You are scheduled for {datetime}.
+
+If you would like to switch your interview time, follow the instructions in the subscription page.
+
+If you wish to be added to a waiting list for another time (because it is filled), please send an email to dfcarms@mcmaster.ca indicating your scheduled time and your CaRMS code. You will receive your interview time and information package via email in early January.
+"""
+            message = message.format(fullname=person.Title(),
+                                     datetime=timeSlot.getLabel(),
+                                     )
 
             if extraEmailContent != ():
                 for line in extraEmailContent:
                     message += line + '\n'
                 message += '\n'
-
-            message += url + '\n\n'
 
             if contactInfo != ():
                 message += 'If you have any questions please contact:\n'
@@ -39,7 +47,7 @@ def sendSignupNotificationEmail(obj, event):
                 message += '\n'
 
             mailHost = obj.MailHost
-            mailHost.secureSend(message, toEmail, fromEmail, subject)
+            mailHost.secureSend(message, toEmail, fromEmail, subject, mbcc='dfcarms@mcmaster.ca')
 
 
 def attemptToFillEmptySpot(obj, event):
