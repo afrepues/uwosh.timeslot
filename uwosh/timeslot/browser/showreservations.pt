@@ -30,7 +30,7 @@
 	      <td colspan="2">None</td>
 	    </tr>
 	      
-	    <tr>
+	    <tal:condition tal:omit-tag="" tal:condition="context/anyTimeslotHasWaitingList"><tr>
 	      <th colspan="2">You are on a waiting list for the following slots:</th>
 	    </tr>
 	    <tr tal:repeat="slot context/getSlotsCurrentUserIsWaitingFor">
@@ -43,7 +43,7 @@
 	    </tr>
 	    <tr tal:condition="not:context/isCurrentUserWaitingForAnySlot">
 	      <td colspan="2">None</td>
-	    </tr>
+	    </tr></tal:condition>
 	    
 	  </table>
 	  <br />
