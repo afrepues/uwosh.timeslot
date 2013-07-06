@@ -16,7 +16,7 @@
       </div>
 
       <ul>
-	<li><a tal:attributes="href string:${context/absolute_url}/@@show-reservations">View My Reservations</a></li>
+	<li><a tal:attributes="href string:${context/absolute_url}/@@show-reservations">View/Cancel reservations</a></li>
       </ul>
 
       <div tal:condition="context/contactInfo" id="contactInfo">

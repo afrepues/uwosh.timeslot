@@ -11,6 +11,11 @@
       
       <div style="border: 1px solid #CCCCCC; padding: 10px">
 	<p>To cancel, select one or more of your reserved slots and click the "Cancel Selected Slots" button.</p>
+	<p tal:condition="not:context/isCurrentUserSignedUpForAnySlot">You
+	are not subscribed to any slot,
+	<a href=".."
+	   tal:attributes="href context/absolute_url">go and subscribe
+	to a slot</a>.</p>
 	<form method="post" tal:attributes="action string:${context/absolute_url}/@@cancel-reservation;">
 	  
 	  <table class="plain">

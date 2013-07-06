@@ -89,6 +89,7 @@ class SubmitSelection(BrowserView):
         if (not allowSignupForMultipleSlots) and self.context.isCurrentUserSignedUpOrWaitingForAnySlot():
             success = False
             error = 'You are already signed up for a slot in this signup sheet.'
+                    ' You must first cancel your current reservation.'
 
         elif timeSlot.isCurrentUserSignedUpForThisSlot():
             sucess = False
