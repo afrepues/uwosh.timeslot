@@ -4,7 +4,7 @@
       i18n:domain="uwosh.timeslot">
 
 <body>
-  <div metal:fill-slot="main">
+  <metal:content-core metal:fill-slot="content-core">
     <tal:main-macro metal:define-macro="main">
       <h2 i18n:translate=""
 	  ><span tal:replace="string:${context/Title}"
@@ -81,6 +81,6 @@
      <p><a tal:attributes="href string:${context/absolute_url};"
            i18n:translate="">Return to the signup sheet</a></p>
     </tal:main-macro>
-  </div>
+  </metal:content-core>
 </body>
 </html>
