@@ -46,6 +46,9 @@ class SubmitSelection(BrowserView):
         if type(self.selectedSlots) != list:
             self.selectedSlots = [self.selectedSlots]
 
+        self.confirmation = bool(self.request.get('confirmation',
+                                                  None))
+
     def getMemberInfo(self):
         portal_membership = getToolByName(self, 'portal_membership')
         member = portal_membership.getAuthenticatedMember()
@@ -87,9 +90,21 @@ class SubmitSelection(BrowserView):
         numberOfAvailableSpots = timeSlot.getNumberOfAvailableSpots()
 
         if (not allowSignupForMultipleSlots) \
-           and self.context.isCurrentUserSignedUpOrWaitingForAnySlot():
-            status = 'error'
-            message = 'You are already signed up for a slot in this signup sheet.'
+           and self.context.isCurrentUserSignedUpForAnySlot():
+
+            current_slot = self.context.getSlotsCurrentUserIsSignedUpFor()[0]
+
+            if not self.confirmation:
+                status = 'confirm'
+                message = current_slot.getLabel()
+
+            else:
+                # TODO: Check that this triggers an ObjectMovedEvent
+                user_id = self.context.getCurrentUsername()
+                timeSlot.manage_pasteObjects(
+                    current_slot.manage_cutObjects(user_id))
+                status = 'success'
+                waiting = False
 
         elif timeSlot.isCurrentUserSignedUpForThisSlot():
             status = 'error'
