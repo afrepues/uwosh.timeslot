@@ -1,6 +1,27 @@
 Changelog
 =========
 
+1.6 - 2013-0?-??
+----------------
+
+* Internationalization
+  [Koblenz-Landau's UniCMS, afrepues]
+
+* Include the values of the extra fields in CSV export
+  [afrepues]
+
+* Use the localized date format for the day content type
+  [Koblenz-Landau's UniCMS, afrepues]
+
+* Don't override the site preference for the starting year
+  [Koblenz-Landau's UniCMS]
+
+* Buildout configurations for testing and development
+  [afrepues]
+
+* Move subscription between timeslots atomically
+  [afrepues]
+
 1.5.4 - 2011-09-11
 ------------------
 
