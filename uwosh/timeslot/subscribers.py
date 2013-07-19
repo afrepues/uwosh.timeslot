@@ -1,3 +1,4 @@
+from zope.app.container.interfaces import IObjectMovedEvent
 
 from Products.validation import validation
 from Products.CMFCore.utils import getToolByName
@@ -44,7 +45,10 @@ def sendSignupNotificationEmail(obj, event):
 
 def attemptToFillEmptySpot(obj, event):
     if obj.getReviewState() == 'signedup':
-        timeSlot = obj.aq_parent
+        if IObjectMovedEvent.providedBy(event):
+            timeSlot = event.oldParent
+        else:
+            timeSlot = obj.aq_parent
 
         portal_membership = getToolByName(obj, 'portal_membership')
         member = portal_membership.getAuthenticatedMember()

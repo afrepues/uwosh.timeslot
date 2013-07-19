@@ -103,6 +103,12 @@ class SubmitSelection(BrowserView):
                 user_id = self.context.getCurrentUsername()
                 timeSlot.manage_pasteObjects(
                     current_slot.manage_cutObjects(user_id))
+                # TODO: Remove user from waiting lists?
+
+                # The user needs to be removed from all subscribed
+                # waiting lists, the alternative is to a queue state
+                # that expires after a while if the person doesn't
+                # confirm.
                 status = 'success'
                 waiting = False
 

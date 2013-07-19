@@ -43,6 +43,12 @@
 
     <subscriber
       for=".interfaces.IPerson
+	   zope.app.container.interfaces.IObjectMovedEvent"
+      handler=".subscribers.attemptToFillEmptySpot"
+      />
+
+    <subscriber
+      for=".interfaces.IPerson
            zope.app.container.interfaces.IObjectRemovedEvent"
       handler=".subscribers.attemptToFillEmptySpot"
       />
