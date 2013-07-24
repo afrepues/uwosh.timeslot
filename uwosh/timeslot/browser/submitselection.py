@@ -90,6 +90,7 @@ class SubmitSelection(BrowserView):
         numberOfAvailableSpots = timeSlot.getNumberOfAvailableSpots()
 
         if (not allowSignupForMultipleSlots) \
+           and numberOfAvailableSpots > 0 \
            and self.context.isCurrentUserSignedUpForAnySlot():
             current_slot = self.context.getSlotsCurrentUserIsSignedUpFor()[0]
 
