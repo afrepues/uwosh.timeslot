@@ -123,6 +123,45 @@ class SubmitSelection(BrowserView):
             status = 'success'
 
         else:
+            # if (not AllowWait) and (spots == 0)
+
+            # This expression covering the cases here can be derived
+            # from simplifying the full expression that describes the
+            # cases covered by this last branching from the IF
+            # statement:
+            #
+            #       not signedUpForThisSlot
+            #   and not (not Multi and (spots > 0) and SignupAny)
+            #   and not (AllowWait or (spots > 0))
+            #
+            # Pulling out the common «not»
+            #
+            #   not (   signedupForThisSlot
+            #        or (not Multi and (spots > 0) and SignupAny)
+            #        or AllowWait
+            #        or (spots > 0)
+            #       )
+            #
+            # It is clear from this that this suite of the IF
+            # statement will only be executed when all of the four
+            # OR'ed expressions are false. The first expression will
+            # always be as we false, because its True value is
+            # captured by the first test expression of the IF
+            # statement. The second expression is redundant as it
+            # evaluates to false whenever the last one is False, hence
+            # we can simplify the expression to:
+            #
+            #   not (False or AllowWait or (spots > 0))
+            #
+            # Distributing the NOT:
+            #
+            #   True and (not AllowWait) and (not (spots > 0))
+            #
+            # Or the more readable form (given that spots can't be
+            # negative) and removing the redundant True:
+            #
+            #   (not AllowWait) and (spots == 0)
+
             status = 'error'
             message = 'The slot you selected is already full. Please select a different one'
 
