@@ -58,9 +58,8 @@ def attemptToFillEmptySpot(obj, event):
         user = member.getUser()
         allowSignupForMultipleSlots = timeSlot.getAllowSignupForMultipleSlots()
 
-        if timeSlot.getNumberOfAvailableSpots() > 0 \
-           and hasattr(user, 'getName'):
-            username = user.getName()
+        if timeSlot.getNumberOfAvailableSpots() > 0:
+            username = user.getId()
             timeSlot.manage_addLocalRoles(username, ['Manager'])
 
             portal_catalog = getToolByName(obj, 'portal_catalog')
