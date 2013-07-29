@@ -107,13 +107,6 @@ class SubmitSelection(BrowserView):
                 status = 'success'
                 waiting = False
 
-        elif (not allowSignupForMultipleSlots) \
-           and self.context.isCurrentUserSignedUpOrWaitingForAnySlot():
-            status = 'error'
-            message = 'You are already on some wait list(s), ' \
-                      'remove yourself from all wait list(s) ' \
-                      'and then try signing up again.'
-
         elif timeSlot.isCurrentUserSignedUpForThisSlot():
             status = 'error'
             message = 'You are already signed up for this slot.'
