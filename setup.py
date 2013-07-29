@@ -44,6 +44,7 @@ setup(name='uwosh.timeslot',
                         # -*- Extra requirements: -*-
                         'Products.Archetypes',
                         'Products.CMFPlone',
+                        'Products.contentmigration',
                         'zope.i18nmessageid',
                         ],
       tests_require=tests_require,
