@@ -72,7 +72,7 @@ def attemptToFillEmptySpot(obj, event):
                 path=timeSlot.getPath())
             for brain in brains:
                 if (not allowSignupForMultipleSlots) \
-                   and timeSlot.isUserSignedUpForAnySlot(brain.getId()):
+                   and timeSlot.isUserSignedUpForAnySlot(brain.getId):
                     continue
                 person = brains[0].getObject()
                 portal_workflow = getToolByName(obj, 'portal_workflow')
