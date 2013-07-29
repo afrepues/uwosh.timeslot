@@ -31,7 +31,7 @@
       <div tal:repeat="result view/results">
 	<tal:block tal:condition="python: result['status'] == 'confirm'">
 	<form action="" method="post">
-	  <p i18n:translate="">You are about to change your signed up
+	  <p i18n:translate="">You are about to change your reserved
 	    time slot from
 	    <em class="timeslot"
 		tal:content="result/message"
@@ -42,7 +42,7 @@
 		   />.</p>
 
 	  <input type="submit" name="form.button.submit"
-		 value="Yes, change my subscription"
+		 value="Yes, change my reservation"
 		 i18n:attributes="value"
 		 />
 	  <input type="hidden" name="form.submitted" value="1" />
