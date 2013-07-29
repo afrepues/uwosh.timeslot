@@ -91,9 +91,13 @@ class SubmitSelection(BrowserView):
         allowWaitingList = timeSlot.getAllowWaitingList()
         numberOfAvailableSpots = timeSlot.getNumberOfAvailableSpots()
 
-        if (not allowSignupForMultipleSlots) \
-           and numberOfAvailableSpots > 0 \
-           and self.context.isCurrentUserSignedUpForAnySlot():
+        if timeSlot.isCurrentUserSignedUpForThisSlot():
+            status = 'error'
+            message = 'You are already signed up for this slot.'
+
+        elif (not allowSignupForMultipleSlots) \
+             and numberOfAvailableSpots > 0 \
+             and self.context.isCurrentUserSignedUpForAnySlot():
             current_slot = self.context.getSlotsCurrentUserIsSignedUpFor()[0]
 
             if not self.confirmation:
@@ -106,10 +110,6 @@ class SubmitSelection(BrowserView):
                                   current_slot._getOb(user_id))
                 status = 'success'
                 waiting = False
-
-        elif timeSlot.isCurrentUserSignedUpForThisSlot():
-            status = 'error'
-            message = 'You are already signed up for this slot.'
 
         elif allowWaitingList or numberOfAvailableSpots > 0:
             person = self.createPersonObject(timeSlot)
