@@ -6,6 +6,8 @@ from Products.validation import validation
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from plone.memoize import instance
 
+from Products.contentmigration.utils import unrestricted_move
+
 
 class ISubmitSelection(Interface):
     pass
@@ -99,8 +101,8 @@ class SubmitSelection(BrowserView):
 
             else:
                 user_id = self.context.getCurrentUsername()
-                timeSlot.manage_pasteObjects(
-                    current_slot.manage_cutObjects(user_id))
+                unrestricted_move(timeSlot,
+                                  current_slot._getOb(user_id))
                 status = 'success'
                 waiting = False
 
