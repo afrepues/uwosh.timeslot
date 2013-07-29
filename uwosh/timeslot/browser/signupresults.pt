@@ -67,6 +67,13 @@
 	      <span tal:content="result/slotLabel" /></p>
 	    <p tal:condition="view/isEmailValid"
 	       i18n:translate="">You will receive a confirmation email now and second one when a spot opens up.</p>
+	    <p tal:condition="not:
+			      context/getAllowSignupForMultipleSlots"
+	       >Though you can be added to the waiting list of multiple
+	    time slots, you will be signed up automatically for one
+	    at most, so once you are signed up for one timeslot you
+	    won't be chosen for any other for as long as you have your
+	    subscription.</p>
 	  </tal:block>
 	</tal:block>
                 
