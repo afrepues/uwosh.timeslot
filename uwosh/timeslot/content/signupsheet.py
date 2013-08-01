@@ -11,6 +11,7 @@ from uwosh.timeslot.utilities import getAllExtraFields
 
 import csv
 from StringIO import StringIO
+from datetime import timedelta
 from DateTime import DateTime
 
 SignupSheetSchema = folder.ATFolderSchema.copy() + atapi.Schema((
@@ -120,7 +121,7 @@ class SignupSheet(folder.ATFolder):
         for (id, obj) in self.contentItems():
             obj.removeAllPeople()
 
-    def exportToCSV(self):
+    def exportSubscribersToCSV(self):
         buffer = StringIO()
         writer = csv.writer(buffer)
 
@@ -144,6 +145,60 @@ class SignupSheet(folder.ATFolder):
         buffer.close()
 
         return result
+
+    def exportToCSV(self):
+        buffer = StringIO()
+        writer = csv.writer(buffer)
+
+        teams_no = 20
+        pre_padding_time = timedelta(hours=2, minutes=45)
+        time_delta = timedelta(minutes=30)
+
+        rural_interview_text = {
+            '0': 'Urban',
+            '1': 'Rural',
+        }
+
+        writer.writerow( ('', ) +
+                         tuple('Team {0}'.format(chr(ndx))
+                               for ndx in xrange(65, 64 + teams_no)))
+
+        for day in self.getDays():
+            writer.writerow( (day.Title(), ) + ('', ) * teams_no )
+            for timeSlot in day.getTimeSlots():
+                row = 0
+                people = timeSlot.getPeople()
+                time = timeSlot.startTime.asdatetime() + pre_padding_time
+                end_time = timeSlot.endTime.asdatetime()
+                while time < end_time:
+                    # Row 1: time and names
+                    p1 = row * teams_no
+                    p2 = ((row + 1) * teams_no) - 1
+                    writer.writerow(
+                        (time.strftime('%I:%M %p'), ) +
+                        tuple(p.Title() for p in people[p1:p2])
+                    )
+                    # Row 2: Rural/urban
+                    writer.writerow(
+                        ('',) +
+                        tuple(rural_interview_text[getattr(p, 'rural_interview')]
+                              for p in people[p1:p2])
+                    )
+                    # Row 3: CaRMS code
+                    writer.writerow(
+                        ('',) +
+                        tuple('[CaRMS code]'
+                              for p in people[p1:p2])
+                    )
+                    time += time_delta
+                    row += 1
+
+        result = buffer.getvalue()
+        buffer.close()
+
+        return result
+
+    #exportToCSV = exportScheduleToCSV
 
     def isCurrentUserSignedUpOrWaitingForAnySlot(self):
         username = self.getCurrentUsername()
