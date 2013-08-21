@@ -1,3 +1,4 @@
+import transaction
 from zope.interface import implements
 
 from Products.Archetypes import atapi
@@ -44,6 +45,14 @@ class Day(folder.ATFolder):
     title = atapi.ATFieldProperty('title')
     date = atapi.ATFieldProperty('date')
     description = atapi.ATFieldProperty('description')
+
+    def _renameAfterCreation(self, check_auto_id=False):
+        """Renames a day object ID to the ISO date format.
+        """
+        new_id = self.getDate().strftime('%Y-%m-%d')
+        transaction.savepoint(optimistic=True)
+        self.setId(new_id)
+        return new_id
 
     def Title(self):
         if self.date is None:
