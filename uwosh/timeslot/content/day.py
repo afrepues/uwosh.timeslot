@@ -1,4 +1,6 @@
 import transaction
+from zope.component.hooks import getSite
+from zope.component import getMultiAdapter
 from zope.interface import implements
 
 from Products.Archetypes import atapi
@@ -55,10 +57,12 @@ class Day(folder.ATFolder):
         return new_id
 
     def Title(self):
-        if self.date is None:
+        try:
+            site = getSite()
+            pview = getMultiAdapter((site, site.REQUEST), name="plone")
+            return pview.toLocalizedTime(self.getDate())
+        except:
             return self.id
-        else:
-            return self.toLocalizedTime(self.getDate())
 
     def getTimeSlots(self):
         brains = self.portal_catalog.unrestrictedSearchResults(
