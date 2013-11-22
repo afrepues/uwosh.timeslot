@@ -30,7 +30,9 @@ class ChooseTimeSlot(BrowserView):
 
     @instance.memoize
     def areAnyExtraFieldsRequired(self):
-        return len(self.context.getExtraFields()) > 0
+        return (not self.context.isCurrentUserSignedUpForAnySlot() \
+                or self.context.getAllowSignupForMultipleSlots()) \
+            and len(self.context.getExtraFields()) > 0
 
     @instance.memoize
     def isFieldRequired(self, field):

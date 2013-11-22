@@ -30,8 +30,9 @@ class SubmitSelection(BrowserView):
         self.getUserInput()
         self.getMemberInfo()
 
-        if not self.areAnyRequiredFieldsEmpty() \
-           and self.isAtLeastOneSlotSelected():
+        if self.isAtLeastOneSlotSelected() \
+           and (not self.areAnyRequiredFieldsEmpty() \
+                or not self.context.getAllowSignupForMultipleSlots()):
             for slotLabel in self.selectedSlots:
                 self.getSlotAndSignUserUpForIt(slotLabel)
 

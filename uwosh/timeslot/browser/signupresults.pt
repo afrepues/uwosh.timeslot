@@ -11,13 +11,13 @@
 	  i18n:name="title" /> -
       Sign Up Results</h2>
     
-      <div tal:condition="python: view.areAnyRequiredFieldsEmpty() or not view.isAtLeastOneSlotSelected()">
+      <div tal:condition="python: (view.areAnyRequiredFieldsEmpty() and context.getAllowSignupForMultipleSlots()) or not view.isAtLeastOneSlotSelected()">
 	<h3 i18n:translate="">Failure</h3>
 	<ul>
 	  <li tal:condition="not:view/isAtLeastOneSlotSelected">
 	    <p i18n:translate="">You need to select at least one slot.</p>
 	  </li>
-	  <li tal:condition="view/areAnyRequiredFieldsEmpty">
+	  <li tal:condition="python: view.areAnyRequiredFieldsEmpty() and context.getAllowSignupForMultipleSlots()">
 	    <p i18n:translate="">You did not complete the following fields:</p>
 	    <ul>
 	      <li tal:repeat="field view/getListOfEmptyRequiredFields">
