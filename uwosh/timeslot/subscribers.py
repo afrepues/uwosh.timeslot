@@ -29,7 +29,7 @@ You are scheduled for {datetime}.
 
 If you would like to switch your interview time, follow the instructions in the subscription page.
 
-If you wish to be added to a waiting list for another time (because it is filled), please send an email to dfcarms@mcmaster.ca indicating your scheduled time and your CaRMS code. You will receive your interview time and information package via email in early January.
+If you wish to be added to a waiting list for another time (because it is filled), please send an email to carms@fammedmcmaster.ca indicating your scheduled time and your CaRMS code. You will receive your interview time and information package via email in early January.
 """
             message = message.format(fullname=person.Title(),
                                      datetime=timeSlot.getLabel(),
@@ -47,7 +47,7 @@ If you wish to be added to a waiting list for another time (because it is filled
                 message += '\n'
 
             mailHost = obj.MailHost
-            mailHost.secureSend(message, toEmail, fromEmail, subject, mbcc='dfcarms@mcmaster.ca')
+            mailHost.secureSend(message, toEmail, fromEmail, subject, mbcc='carms@fammedmcmaster.ca')
 
 
 def attemptToFillEmptySpot(obj, event):
